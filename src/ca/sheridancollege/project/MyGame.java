@@ -9,18 +9,18 @@ import java.util.Scanner;
  * @author Abdul Rahman Pennino
  * Date: 2025-12-02
  */
-public class GoFishGame extends Game {
+public class MyGame extends Game {
 
     private Deck deck; // The deck I use in my game
 
     // Constructor: sets up the deck and players list
-    public GoFishGame() {
+    public MyGame() {
         super(); // Initialize players list
         deck = new Deck(); // Create deck
     }
 
     // Add a player
-    public void addPlayer(GoFishPlayer player) {
+    public void addPlayer(MyPlayer player) {
         getPlayers().add(player);
     }
 
@@ -36,7 +36,7 @@ public class GoFishGame extends Game {
             for (Player p : getPlayers()) {
                 Card dealtCard = deck.dealCard();
                 if (dealtCard != null) {
-                    ((GoFishPlayer)p).getHand().addCard(dealtCard);
+                    ((MyPlayer)p).getHand().addCard(dealtCard);
                 }
             }
         }
@@ -46,7 +46,7 @@ public class GoFishGame extends Game {
     public void showAllHands() {
         for (Player p : getPlayers()) {
             System.out.println(p.getName() + "'s hand:");
-            System.out.println(((GoFishPlayer)p).getHand().showHand());
+            System.out.println(((MyPlayer)p).getHand().showHand());
             System.out.println("-------------------");
         }
     }
@@ -57,7 +57,7 @@ public class GoFishGame extends Game {
     }
 
     // Let player choose an opponent
-    private GoFishPlayer chooseOpponent(GoFishPlayer current, ArrayList<GoFishPlayer> players, Scanner sc) {
+    private MyPlayer chooseOpponent(MyPlayer current, ArrayList<MyPlayer> players, Scanner sc) {
     while (true) {
         System.out.println("Choose a player to ask:");
         for (int i = 0; i < players.size(); i++) {
@@ -76,7 +76,7 @@ public class GoFishGame extends Game {
 }
 
 // Let player choose a valid rank
-private MyCard.Rank chooseRank(GoFishPlayer player, Scanner sc) {
+private MyCard.Rank chooseRank(MyPlayer player, Scanner sc) {
     while (true) {
         System.out.print("Enter rank (ACE, TWO...KING): ");
         String input = sc.nextLine().toUpperCase();
@@ -94,10 +94,10 @@ private MyCard.Rank chooseRank(GoFishPlayer player, Scanner sc) {
 }
 
 // Check if game should end
-private boolean gameOver(ArrayList<GoFishPlayer> players) {
+private boolean gameOver(ArrayList<MyPlayer> players) {
     if (!deck.getCards().isEmpty()) return false;
 
-    for (GoFishPlayer p : players) {
+    for (MyPlayer p : players) {
         if (p.getHand().getHandSize() > 0) {
             return false;
         }
@@ -106,12 +106,12 @@ private boolean gameOver(ArrayList<GoFishPlayer> players) {
 }
 
 // Handle a single player's turn
-private void takeTurn(GoFishPlayer player, ArrayList<GoFishPlayer> players, Scanner sc) {
+private void takeTurn(MyPlayer player, ArrayList<MyPlayer> players, Scanner sc) {
     System.out.println(player.getName() + "'s turn.");
     System.out.println("Your hand:");
     System.out.println(player.getHand().showHand());
 
-    GoFishPlayer opponent = chooseOpponent(player, players, sc);
+    MyPlayer opponent = chooseOpponent(player, players, sc);
     MyCard.Rank requestedRank = chooseRank(player, sc);
 
     ArrayList<Card> cardsGiven = opponent.getHand().giveCardsOfRank(requestedRank);
@@ -136,11 +136,11 @@ private void takeTurn(GoFishPlayer player, ArrayList<GoFishPlayer> players, Scan
 public void play() {
     Scanner sc = new Scanner(System.in);
 
-    ArrayList<GoFishPlayer> players = new ArrayList<>();
-    for (Player p : getPlayers()) players.add((GoFishPlayer)p);
+    ArrayList<MyPlayer> players = new ArrayList<>();
+    for (Player p : getPlayers()) players.add((MyPlayer)p);
 
     while (!gameOver(players)) {
-        for (GoFishPlayer player : players) {
+        for (MyPlayer player : players) {
             if (player.getHand().getHandSize() > 0 || !deck.getCards().isEmpty()) {
                 takeTurn(player, players, sc);
             }
@@ -150,8 +150,8 @@ public void play() {
 
 
     // Check if any player has cards
-    private boolean playersHaveCards(ArrayList<GoFishPlayer> players) {
-        for (GoFishPlayer p : players) {
+    private boolean playersHaveCards(ArrayList<MyPlayer> players) {
+        for (MyPlayer p : players) {
             if (p.getHand().getHandSize() > 0) return true;
         }
         return false;
@@ -161,15 +161,15 @@ public void play() {
     @Override
     public void declareWinner() {
         int maxBooks = -1;
-        ArrayList<GoFishPlayer> winners = new ArrayList<>();
+        ArrayList<MyPlayer> winners = new ArrayList<>();
         for (Player p : getPlayers()) {
-            int books = ((GoFishPlayer)p).getCompletedBooks().size();
+            int books = ((MyPlayer)p).getCompletedBooks().size();
             if (books > maxBooks) {
                 maxBooks = books;
                 winners.clear();
-                winners.add((GoFishPlayer)p);
+                winners.add((MyPlayer)p);
             } else if (books == maxBooks) {
-                winners.add((GoFishPlayer)p);
+                winners.add((MyPlayer)p);
             }
         }
 
@@ -178,7 +178,7 @@ public void play() {
             System.out.println("Winner: " + winners.get(0).getName() + " with " + maxBooks + " books!");
         } else {
             System.out.print("It's a tie between: ");
-            for (GoFishPlayer p : winners) System.out.print(p.getName() + " ");
+            for (MyPlayer p : winners) System.out.print(p.getName() + " ");
             System.out.println("with " + maxBooks + " books each!");
         }
     }

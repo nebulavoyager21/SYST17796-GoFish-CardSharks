@@ -1,5 +1,10 @@
 package ca.sheridancollege.project;
 
+import ca.sheridancollege.project.Card;
+import ca.sheridancollege.project.Deck;
+import ca.sheridancollege.project.Hand;
+import ca.sheridancollege.project.MyCard;
+import ca.sheridancollege.project.Player;
 import java.util.ArrayList;
 
 /**
@@ -9,13 +14,13 @@ import java.util.ArrayList;
  * Edited by: Abdul Rahman Pennino
  * Date: 2025-12-02
  */
-public class GoFishPlayer extends Player {
+public class MyPlayer extends Player {
 
     private Hand hand; // The player's hand of cards
     private ArrayList<MyCard.Rank> completedBooks; // The ranks for which player has collected 4 cards
 
     // Constructor: sets the player's name and creates an empty hand and book list
-    public GoFishPlayer(String name) {
+    public MyPlayer(String name) {
         super(name);
         hand = new Hand();
         completedBooks = new ArrayList<>();
@@ -58,7 +63,7 @@ public class GoFishPlayer extends Player {
     }
 
     // Player takes their turn
-    public void takeTurn(ArrayList<GoFishPlayer> players, Deck deck) {
+    public void takeTurn(ArrayList<MyPlayer> players, Deck deck) {
         if (hand.getHandSize() == 0) { // If no cards, draw one
             System.out.println(getName() + " has no cards, drawing one from deck...");
             Card drawn = deck.dealCard();
@@ -71,7 +76,7 @@ public class GoFishPlayer extends Player {
         MyCard.Rank requestedRank = ((MyCard)hand.getCards().get(0)).getRank();
 
         // Pick a random opponent
-        GoFishPlayer opponent;
+        MyPlayer opponent;
         do {
             opponent = players.get((int)(Math.random() * players.size()));
         } while(opponent == this);

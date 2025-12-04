@@ -49,13 +49,13 @@ public class Main {
         sc.nextLine(); // consume leftover newline
 
         // Create a Go Fish game instance
-        GoFishGame game = new GoFishGame(); // game name is already set to "Go Fish"
+        MyGame game = new MyGame(); // game name is already set to "Go Fish"
 
         // Add players to the game
         for (int i = 1; i <= numPlayers; i++) {
             System.out.print("Enter name for player " + i + ": ");
             String name = sc.nextLine();
-            game.addPlayer(new GoFishPlayer(name));
+            game.addPlayer(new MyPlayer(name));
         }
 
         // Deal starting hands
