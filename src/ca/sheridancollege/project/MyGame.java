@@ -5,6 +5,11 @@ import java.util.Scanner;
 
 /**
  * My Go Fish game class.
+ * GoFishGame represents the game of Go Fish.
+ * Each player tries to collect sets of four cards of the same rank (books).
+ * On their turn, a player asks another for a specific rank. If the other player has it, they give it and the turn continues.
+ * If not, the player draws from the deck ("Go Fish").
+ * The game ends when all books are collected. The player with the most books wins.
  *
  * @author Abdul Rahman Pennino
  * Date: 2025-12-02
