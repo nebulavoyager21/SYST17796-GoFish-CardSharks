@@ -10,6 +10,8 @@ import java.util.ArrayList;
  * Date: 2025-12-02
  */
 public class Deck extends GroupOfCards {
+    
+    private static Deck instance;
 
     /**
      * Constructor: I want to create a full deck of 52 cards
@@ -25,15 +27,28 @@ public class Deck extends GroupOfCards {
         for (MyCard.Suit suit : MyCard.Suit.values()) {
             for (MyCard.Rank rank : MyCard.Rank.values()) {
                 // I make a card for this suit and rank
-                MyCard card = new MyCard(suit, rank);
-                
+                //MyCard card = new MyCard(suit, rank);
+                //Here we add the factory method
+                cards.add(CardFactory.createCard(suit,rank));
                 // I add this card to my list
-                cards.add(card);
+                //cards.add(card);
             }
         }
         
         // Now that I have all my cards, I tell the parent class to use this list
         super.setCards(cards);
+    }
+    
+    /**
+     *This method will give access to the only deck in the game
+     * and return the single Deck instance
+     */
+    public static Deck getInstance(){
+        if(instance == null)
+        {
+            instance = new Deck();
+        }
+        return instance;
     }
 
     /**
@@ -47,13 +62,13 @@ public class Deck extends GroupOfCards {
         }
         
         // Otherwise, I take the first card from the list
-        Card topCard = super.getCards().get(0);
+        //Card topCard = super.getCards().get(0);
         
         // I remove it from the deck so no one can take it again
         super.getCards().remove(0);
         
         // Finally, I give the card to whoever asked for it
-        return topCard;
+        //return topCard;
     }
 
     /**
