@@ -138,7 +138,7 @@ private void takeTurn(MyPlayer player, ArrayList<MyPlayer> players, Scanner sc) 
 
     // Play the game
     @Override
-public void play() {
+    public void play() {
     Scanner sc = new Scanner(System.in);
 
     ArrayList<MyPlayer> players = new ArrayList<>();
