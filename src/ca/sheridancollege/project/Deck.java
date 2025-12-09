@@ -65,7 +65,7 @@ public class Deck extends GroupOfCards {
         //Card topCard = super.getCards().get(0);
         
         // I remove it from the deck so no one can take it again
-        super.getCards().remove(0);
+        return super.getCards().remove(0);
         
         // Finally, I give the card to whoever asked for it
         //return topCard;
